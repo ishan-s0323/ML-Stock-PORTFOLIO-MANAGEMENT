@@ -18,7 +18,7 @@ Research code for a documented 50-stock Indian equity experiment. It acquires da
 | src/test_*.py | Accounting, portfolio, inference, risk, and data tests. |
 | examples/ | Saved metric summaries and the October 2026 acquisition manifest; no vendor price series. |
 
-The folder contains no paper, PDF, document builder, Yahoo raw prices, processed stock histories, or per-session trading paths.
+This repository contains no paper, PDF, document builder, Yahoo raw prices, processed stock histories, or per-session trading paths.
 
 ## Setup
 
@@ -44,10 +44,12 @@ The model source, [requirements](requirements.txt), and random seeds are fixed i
 
 ## Acquire and validate data
 
-    python src/build_yfinance_data.py --download
-    python src/verify_yfinance_rebuild.py
+```bash
+python src/build_yfinance_data.py --download
+python src/verify_yfinance_rebuild.py
+```
 
-The download uses yfinance 1.7.0, .NS symbols, daily data from 2018-01-01 through 2025-12-30, and explicit auto_adjust=False, actions=True, repair=False, and threads=False. The pipeline multiplies each raw OHLC field by that day's Adj Close / Close factor, retains raw volume, and recomputes the 17 features. It writes local raw and processed CSVs plus data/yfinance_rebuild/manifest.json with retrieval settings, timestamp, SHA-256 hashes, row counts, and dividend/split event counts.
+The download uses yfinance 1.7.0, .NS symbols, daily data from 2018-01-01 through 2025-12-30, and explicit auto_adjust=False, actions=True, repair=False, and threads=False. The pipeline multiplies each raw OHLC field by that day's Adj Close / Close factor, retains raw volume, and recomputes the 17 features. It writes local raw and processed CSVs plus `data/yfinance_rebuild/manifest.json` with retrieval settings, timestamp, SHA-256 hashes, row counts, and dividend/split event counts.
 
 The [example manifest](examples/acquisition_manifest_2026-10-25.json) records the documented 2026-10-25 acquisition. A fresh vendor download may contain revisions and need not match those hashes or the example metrics. After downloading, rerunning the builder without `--download` reconstructs processed files from local raw CSVs and verifies them against the current local manifest.
 
@@ -55,14 +57,16 @@ Yahoo data are not redistributed here. Check the provider's terms before sharing
 
 ## Run the experiment
 
-    python src/run_yfinance_rebuild_experiments.py --stage all --placebo-replicates 500
-    python src/run_feature_diagnostics.py
+```bash
+python src/run_yfinance_rebuild_experiments.py --stage all --placebo-replicates 500
+python src/run_feature_diagnostics.py
+```
 
 The first command runs the chronological benchmark, 2021 threshold selection, shared-cash portfolios, 500 signal rotations, delivery-cost scenario, 5,000-replicate paired 20-session block bootstrap (seed 42), and risk/accounting summaries. The second command is a separate exploratory diagnostic: it fits on pre-2021 data and scores the **already used** 2021 validation year for importance, ablation, and calibration. It does not change trading-policy results. The full run can take substantial time.
 
 To run the bootstrap alone **after** generating delivery-cost portfolio paths, use `python src/run_delivery_cost_bootstrap.py`. That script writes a separate focused CSV; it is not needed after `--stage all`.
 
-Outputs are written to results/yfinance_rebuild/ and ignored by Git. Summary snapshots from the documented acquisition are in [examples/metrics](examples/metrics).
+Outputs are written to `results/yfinance_rebuild/` and ignored by Git. Summary snapshots from the documented acquisition are in [examples/metrics](examples/metrics).
 
 ## Main assumptions and interpretation
 
