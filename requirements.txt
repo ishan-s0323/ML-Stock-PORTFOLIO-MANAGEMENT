@@ -3,3 +3,6 @@ scikit-learn==1.5.1
 pandas==2.2.2
 numpy==1.26.4
 yfinance==1.7.0
+matplotlib==3.9.2
+streamlit==1.57.0
+plotly==6.7.0
