@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.env
+.deps/
+.DS_Store
+Thumbs.db
+
+# Yahoo prices and derived per-session/stock data are acquired locally.
+/data/
+/results/
+
+# Local logs and temporary artifacts.
+*.log
+tmp/
+scratch/
