@@ -8,8 +8,12 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = ROOT / "results/yfinance_rebuild"
-DATA = ROOT / "data/yfinance_rebuild"
+LOCAL_BASE = ROOT / "results/yfinance_rebuild"
+PUBLIC_BASE = ROOT / "dashboard/public_outputs/results/yfinance_rebuild"
+BASE = LOCAL_BASE if (LOCAL_BASE / "portfolio_level/delivery_cost_portfolio_summary.csv").is_file() else PUBLIC_BASE
+LOCAL_DATA = ROOT / "data/yfinance_rebuild"
+PUBLIC_DATA = ROOT / "dashboard/public_outputs/data/yfinance_rebuild"
+DATA = LOCAL_DATA if (LOCAL_DATA / "manifest.json").is_file() else PUBLIC_DATA
 REGISTRY: dict[str, tuple[Path, set[str]]] = {
     "model_summary": (BASE / "model_summary.csv", {"Model", "Mean_Fold_AUC", "Mean_Fold_Accuracy", "Mean_Fold_LogLoss", "Folds"}),
     "folds": (BASE / "fold_diagnostics.csv", {"Stock", "Fold", "Start", "Model", "AUC", "Accuracy", "LogLoss"}),

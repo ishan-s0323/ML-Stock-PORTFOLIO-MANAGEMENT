@@ -1,0 +1,29 @@
+{
+  "description": "Unmodified saved result tables from the documented yfinance rebuild; no Yahoo price CSVs",
+  "files": {
+    "data/yfinance_rebuild/manifest.json": "35b5db402c3cb4c3868a74c067d76b36e0f9ca5778b9ca44fa1c368abcb9a44f",
+    "results/yfinance_rebuild/feature_diagnostics/diagnostic_manifest.json": "2939abd204472b59f08ceb5664b0c0f89f0c52b0b288fd4ea9aa02c10fc7d007",
+    "results/yfinance_rebuild/model_summary.csv": "2f06a662efbea29d32f086d3d48be7e9f023af18f4b895b1cb94cadde8419c80",
+    "results/yfinance_rebuild/fold_diagnostics.csv": "6d6ff58f5f77d60eebca33b93e273d1e502fc935aa6731c2c06999642f04f2cb",
+    "results/yfinance_rebuild/stock_metrics.csv": "6580a9a80ed6a8bf47505eb643bcc01892e58c1a14171d16169946ac2578eb82",
+    "results/yfinance_rebuild/portfolio_level/delivery_cost_portfolio_summary.csv": "8ee3f0bddd321e5d4f33069e19074c78c0ae42da9c591a69bcd8733c3fd3a53f",
+    "results/yfinance_rebuild/portfolio_level/delivery_cost_portfolio_paths.csv": "dfdd18b22235e89d03ac9f6e033f2cc2312ba12a99f2d943f17640e55a04005f",
+    "results/yfinance_rebuild/portfolio_level/delivery_cost_risk_attribution.csv": "96466944c3fc4b8f5dbdc5d970d973cc041faa15a20faae28037f29034983542",
+    "results/yfinance_rebuild/portfolio_level/accounting_gap_summary.csv": "c13d92342259b1f0a0f0db01626e4eaa8bd6648d8a28dcfcc9e50d0d9145bb90",
+    "results/yfinance_rebuild/portfolio_level/portfolio_cost_sensitivity.csv": "7d30955bb0bc0e6baba49e3d6231a68c54d2586c168f35e77879e02e90311441",
+    "results/yfinance_rebuild/portfolio_level/delivery_cost_log_excess_bootstrap.csv": "efebfede99714e6fd203d7e9f45f4fca49fadc63887217b69b96f762172f806a",
+    "results/yfinance_rebuild/portfolio_level/delivery_cost_sharpe_bootstrap.csv": "6bdbe860551f2e2e2f6a4f517d763530554365ad6398f0ea0d7cb6409f75c0b6",
+    "results/yfinance_rebuild/portfolio_level/logistic_placebo_summary.csv": "1e5e91750aab9065ffb4d3409a72735ef0a080a7778b20a54744d50b66006d1d",
+    "results/yfinance_rebuild/feature_diagnostics/feature_importance_summary.csv": "5d3121834dc7cba9b366be47101df0740afc275ce94c47cc8f3b474201acc30b",
+    "results/yfinance_rebuild/feature_diagnostics/group_ablation_summary.csv": "193db3759c2b19bb530b249e09335745603798afb5e08bceb398e28ec238b871",
+    "results/yfinance_rebuild/feature_diagnostics/calibration_summary.csv": "a9e21e9a4ce750104dc7623206530e5008c3a2805b991bb86ec0a4b35374cfff",
+    "results/yfinance_rebuild/feature_diagnostics/calibration_bins.csv": "021eeb41c8c41ebe44ffbdd24a6550e2e5cc02aac9c67bbbca63331b1975af10",
+    "results/yfinance_rebuild/feature_diagnostics/validation_probabilities.csv": "8611c93dae8d972cd9ff337bfe6a19204b1c6039479d9bc5e5ad73460173d9d4",
+    "results/yfinance_rebuild/regime_analysis_v3/direct_ml_vs_buy_hold_windows.csv": "0dc27016e3c04869966fb8465d4fd1fed976552bc34f03ae76c6ec78fd95e9f5",
+    "results/yfinance_rebuild/regime_analysis_v3/ml_outperformance_summary.csv": "bd65f3d46b7850a86213e66a8dd9da6f321207c808ca06042b2ec12ff3b75f78",
+    "results/yfinance_rebuild/regime_analysis_v3/direct_ml_vs_buy_hold_regimes.csv": "d16f364d98304904c9784659fab404853bd2540f84ca48d23909425c383eb9f0",
+    "results/yfinance_rebuild/regime_analysis_v2/regime_conditioned_metrics_delivery.csv": "07a68a28f93a1efabd003aefb094dc6dee50fa64ce20d556b78dc514bcf2b177",
+    "results/yfinance_rebuild/regime_analysis_v2/contiguous_regime_episodes_all_labels.csv": "e125916e6d5efb09bc24928d17adcff13f682d89b54cfc08ec557b4eba30c204",
+    "results/yfinance_rebuild/regime_analysis_v3/secondary_exposure_matched_windows.csv": "39536928774aadeacaa7ca6beb638b5ffa523750434a6157b0f237cc4f61227d"
+  }
+}

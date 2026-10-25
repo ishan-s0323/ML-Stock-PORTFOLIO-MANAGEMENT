@@ -1,0 +1,11 @@
+Condition,Window_Sessions,Start_Date,End_Date,Buy_Hold_Return_Pct,ML_Beating_Buy_Hold_Count,ML_Beating_Buy_Hold
+best,100,2023-11-02,2024-04-01,29.673861931585144,0,None
+worst,100,2024-09-30,2025-02-19,-17.55535187114813,8,Logistic Regression 1D; Logistic Regression 1D — 2021 selected; XGBoost 1D; XGBoost 1D — 2021 selected; XGBoost 3D; XGBoost 3D — 2021 selected; XGBoost 5D; XGBoost 5D — 2021 selected
+best,150,2023-11-02,2024-06-14,42.702755037142246,0,None
+worst,150,2024-09-02,2025-04-07,-15.649091249522684,8,Logistic Regression 1D; Logistic Regression 1D — 2021 selected; XGBoost 1D; XGBoost 1D — 2021 selected; XGBoost 3D; XGBoost 3D — 2021 selected; XGBoost 5D; XGBoost 5D — 2021 selected
+best,200,2023-10-27,2024-08-22,53.89169412740078,0,None
+worst,200,2024-06-20,2025-04-07,-8.068715497658907,8,Logistic Regression 1D; Logistic Regression 1D — 2021 selected; XGBoost 1D; XGBoost 1D — 2021 selected; XGBoost 3D; XGBoost 3D — 2021 selected; XGBoost 5D; XGBoost 5D — 2021 selected
+best,252,2023-03-29,2024-04-09,62.0355454077619,0,None
+worst,252,2024-09-27,2025-10-01,-6.375144918219588,8,Logistic Regression 1D; Logistic Regression 1D — 2021 selected; XGBoost 1D; XGBoost 1D — 2021 selected; XGBoost 3D; XGBoost 3D — 2021 selected; XGBoost 5D; XGBoost 5D — 2021 selected
+best,378,2023-03-15,2024-09-27,98.22400950123718,0,None
+worst,378,2024-06-19,2025-12-23,10.423316575277664,2,Logistic Regression 1D — 2021 selected; XGBoost 1D — 2021 selected

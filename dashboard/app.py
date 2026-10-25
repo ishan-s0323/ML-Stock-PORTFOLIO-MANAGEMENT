@@ -78,7 +78,7 @@ def download(frame: pd.DataFrame, label: str, filename: str) -> None:
 
 
 def show_plot(fig: go.Figure) -> None:
-    st.plotly_chart(fig, use_container_width=True, config={"displaylogo": False})
+    st.plotly_chart(fig, width="stretch", config={"displaylogo": False})
 
 
 def overview() -> None:
@@ -115,6 +115,11 @@ def overview() -> None:
 
 def stock_explorer() -> None:
     header("Stock Data Explorer", "Adjusted historical OHLCV and saved technical indicators")
+    if not (DATA / "processed").is_dir():
+        st.info("Processed Yahoo price CSVs are intentionally excluded from the public GitHub package. "
+                "For the complete local explorer, restore the matching manifest and 50 processed files to "
+                "`data/yfinance_rebuild/` and run the dashboard from the repository root.")
+        return
     names = symbols()
     symbol = st.selectbox("Stock", names, index=names.index("RELIANCE") if "RELIANCE" in names else 0)
     frame = stock_data(symbol)
@@ -174,7 +179,7 @@ def model_performance() -> None:
         fig = go.Figure(go.Bar(x=sub.Model, y=sub[metric], marker_color=[color_for(n) for n in sub.Model]))
         fig.update_xaxes(tickangle=-25)
         with col: show_plot(charts.finish(fig, label, 310))
-    st.dataframe(sub, use_container_width=True, hide_index=True)
+    st.dataframe(sub, width="stretch", hide_index=True)
     fold = folds[folds.Model.isin(chosen)].copy()
     stocks = sorted(fold.Stock.unique())
     pick = st.selectbox("Stock-level fold diagnostics", ["All stocks"] + stocks)
@@ -226,11 +231,11 @@ def portfolio_page() -> None:
     display = summary[summary.Strategy.isin(chosen)].merge(risk[["Strategy", "Sortino"]], on="Strategy", how="left")
     fields = ["Strategy", "Total_Return_Pct", "Sharpe", "Sortino", "Max_Drawdown_Pct",
               "Mean_Exposure_Pct", "Trade_Legs", "Fees_Paid"]
-    st.dataframe(display[fields].round(3), use_container_width=True, hide_index=True)
+    st.dataframe(display[fields].round(3), width="stretch", hide_index=True)
     show_plot(charts.equity_chart(paths, chosen)); show_plot(charts.drawdown_chart(paths, chosen))
     st.subheader("Stock averages versus shared capital")
     gap = table("accounting_gap")
-    st.dataframe(gap[gap.Policy.isin(chosen)].round(2), use_container_width=True, hide_index=True)
+    st.dataframe(gap[gap.Policy.isin(chosen)].round(2), width="stretch", hide_index=True)
     note("Separately funded stock means assign fresh capital to every name. The shared portfolio limits entry tickets and allocates simultaneous orders from one cash balance, so returns and rankings can differ.")
     download(display[fields], "Download displayed portfolio metrics", "portfolio_comparison.csv")
     source("portfolio_summary")
@@ -255,7 +260,7 @@ def costs_page() -> None:
     show_plot(charts.finish(fig, "Flat-cost sensitivity · shared portfolio", 360))
     st.subheader("Delivery-cost profile")
     prof = delivery[delivery.Strategy.isin(chosen)][["Strategy", "Total_Return_Pct", "Trade_Legs", "Fees_Paid", "Mean_Exposure_Pct"]]
-    st.dataframe(prof.round(2), use_container_width=True, hide_index=True)
+    st.dataframe(prof.round(2), width="stretch", hide_index=True)
     show_plot(charts.strategy_bars(prof, "Total_Return_Pct", "Saved Indian delivery-cost scenario", chosen))
     fixed = flat[flat.Strategy.eq("XGBoost 1D")].set_index("All_In_Cost_Per_Leg")
     if set([0.0, .004]).issubset(fixed.index):
@@ -287,7 +292,7 @@ def windows_page(demo_condition: str | None = None) -> None:
     show_plot(charts.strategy_bars(plotted, metric, f"{length}-session {condition} window · {metric}"))
     st.dataframe(plotted[["Strategy", "Return_Pct", "Return_Diff_vs_Buy_Hold_Points", "Max_Drawdown_Pct",
                           "Sharpe", "Mean_Exposure_Pct", "Trade_Legs", "Fee_Charges_INR"]].round(2),
-                 use_container_width=True, hide_index=True)
+                 width="stretch", hide_index=True)
     st.subheader("Across all five predefined lengths")
     show_plot(charts.window_heatmap(windows, ML))
     left, right = st.columns(2)
@@ -325,12 +330,12 @@ def regimes_page() -> None:
     with r: show_plot(charts.strategy_bars(selected, "Mean_Exposure_Pct", f"{state.title()} · invested exposure"))
     st.dataframe(selected[["Strategy", "Mean_Daily_Return_Pct", "Mean_Daily_Gap_vs_Buy_Hold_Points",
                           "Mean_Exposure_Pct", "Volatility_Annual_Pct", "Sharpe_On_Labelled_Days",
-                          "Trade_Legs"]].round(3), use_container_width=True, hide_index=True)
+                          "Trade_Legs"]].round(3), width="stretch", hide_index=True)
     episodes = table("regime_episodes")
     ep = episodes[episodes.Regime.eq(state) & episodes.Strategy.isin(["Buy & Hold"] + ML)]
     st.subheader("Contiguous episodes")
     st.dataframe(ep[["Episode", "Start_Date", "End_Date", "Sessions", "Strategy", "Return_Pct",
-                     "Max_Drawdown_Pct", "Mean_Exposure_Pct"]].round(2), use_container_width=True, hide_index=True)
+                     "Max_Drawdown_Pct", "Mean_Exposure_Pct"]].round(2), width="stretch", hide_index=True)
     note("The state for session t uses only the internal passive portfolio through t−1. A bearish label does not mean session t fell. Returns compounded across noncontiguous labelled days are descriptive, not an executable regime-only strategy.", True)
     download(selected, "Download displayed regime metrics", f"regime_{state}.csv")
 
@@ -407,16 +412,16 @@ def stats_page() -> None:
     placebo = table("placebo")
     show_plot(charts.forest(boot))
     st.dataframe(boot[["Policy", "Annualized_Log_Excess_Pct", "CI_95_Lower_Pct", "CI_95_Upper_Pct",
-                       "Unadjusted_P", "Holm_P"]].round(3), use_container_width=True, hide_index=True)
+                       "Unadjusted_P", "Holm_P"]].round(3), width="stretch", hide_index=True)
     sig = boot[boot.Holm_P < .05]
     if not sig.empty:
         st.write("**Holm-significant log-return comparison(s):** " + ", ".join(sig.Policy))
     note("The paired circular moving-block bootstrap resamples the same market dates across policies (5,000 draws, 20-session blocks). Holm adjusts across 12 active policies. A 95% interval crossing zero does not support a difference at the stated level. The development period was repeatedly inspected, so even these adjusted p-values are exploratory.")
     st.subheader("Exposure-matched Sharpe differences")
     st.dataframe(sharpe[["Strategy", "Observed_Sharpe_Difference", "CI_2_5", "CI_97_5", "Raw_P", "Holm_Adjusted_P"]].round(3),
-                 use_container_width=True, hide_index=True)
+                 width="stretch", hide_index=True)
     st.subheader("Signal-rotation placebo · legacy flat 10 bp")
-    st.dataframe(placebo.round(3), use_container_width=True, hide_index=True)
+    st.dataframe(placebo.round(3), width="stretch", hide_index=True)
     note("The placebo uses legacy flat-10-bp paths. It was not repeated for the delivery-cost profile. Best/worst windows were selected retrospectively; this dashboard assigns them no new p-values.", True)
     download(boot, "Download bootstrap table", "delivery_bootstrap.csv")
 
@@ -459,7 +464,7 @@ def methodology_page() -> None:
         if path.is_file():
             st.download_button(f"Download {rel}", path.read_bytes(), rel, mime="text/markdown")
     st.write("For an offline viva, install the pinned dependencies in advance, keep the saved `data/yfinance_rebuild` and `results/yfinance_rebuild` folders locally, and launch from the repository root. No page automatically downloads prices or refits a model.")
-    st.info("GitHub repository URL is not configured in this local project; add a verified remote link before publishing the dashboard.")
+    st.markdown("[Project source on GitHub](https://github.com/ishan-s0323/ML-Stock-PORTFOLIO-MANAGEMENT)")
 
 
 def main() -> None:
